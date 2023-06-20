@@ -6,23 +6,46 @@ const buttonStart = document.querySelector("#buttonStart")
 const progressBar = document.querySelector("#progressBar")
 const message = document.querySelector("#message")
 const body = document.querySelector("body")
+const spanTitle = document.querySelector("#spanTitle")
+const operations = ["+", "-", "x"]
+let score = 0
+let timeLeft = 30
+progressBar.value = timeLeft
+let historial = []
+inputResult.disabled = true
 
+randomOperationTitle()
+
+// Eventos
+buttonStart.addEventListener("click", playTheGame)
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); 
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
-const operations = ["+","-","x"]
-
-buttonStart.addEventListener("click", playTheGame)
-
-function playTheGame(){
-  
+function randomOperationTitle(){
+  setInterval(() => {
+    spanTitle.textContent = " " + randomOperation()
+    spanTitle.setAttribute("class", "absolute teal-text")
+  }, 500);
 }
 
-function calculateResult(){
+function playTheGame() {
+  buttonStart.disabled = true;
+  inputResult.disabled = false;
+  inputResult.focus()
+  setInterval(() => {
+    if (progressBar.value > 0) {
+      progressBar.value -= 1
+    }
+  }, 1000);
+
+}
+
+
+function calculateResult() {
   let total = 0
   let number1 = getRandomInt(0, 9)
   let number2 = getRandomInt(0, 9)
@@ -30,7 +53,7 @@ function calculateResult(){
   secondNumber.textContent = number2
   let randomOp = randomOperation()
   operation.textContent = randomOp
-  switch(randomOp){
+  switch (randomOp) {
     case "+":
       total = number1 + number2
       break;
@@ -44,29 +67,18 @@ function calculateResult(){
   return total
 }
 
-inputResult.addEventListener("keyup", enterResult)
-
-function enterResult(e){
-  let inputValue = Number(inputResult.value)
-  let randomRes = calculateResult()
-  let checkResult = inputValue == randomRes
-  if(e.key === "Enter" && inputValue != ""){
-     createMessage(checkResult)
-  }
-}
-
-function createMessage(checkResult){
+function createMessage(checkResult) {
   const div = document.createElement('div')
   const p = document.createElement('p')
   const resultValue = checkResult ? '¡Correct!' : '"¡Incorrect!"'
   const text = document.createTextNode(resultValue)
-  
-  if(resultValue == "¡Correct!"){
-    div.setAttribute('class','absolute center-position teal white-text rounded p-1 animation')
-  }else{
-    div.setAttribute('class','absolute center-position red darken-1 white-text rounded p-1 animation')
+
+  if (resultValue == "¡Correct!") {
+    div.setAttribute('class', 'absolute center-position teal white-text rounded p-1 animation')
+  } else {
+    div.setAttribute('class', 'absolute center-position red darken-1 white-text rounded p-1 animation')
   }
-  
+
   p.appendChild(text)
   div.appendChild(p)
   body.appendChild(div)
@@ -75,14 +87,6 @@ function createMessage(checkResult){
   }, 2000);
 }
 
-
-  
-function randomOperation(){
+function randomOperation() {
   return operations[getRandomInt(0, 3)]
 }
-
-
-
-
-
-

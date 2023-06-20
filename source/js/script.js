@@ -10,7 +10,6 @@ const spanTitle = document.querySelector("#spanTitle")
 const operations = ["+", "-", "x"]
 let score = 0
 let timeLeft = 30
-progressBar.value = timeLeft
 let historial = []
 inputResult.disabled = true
 
@@ -31,41 +30,74 @@ function randomOperationTitle() {
     spanTitle.setAttribute("class", "absolute teal-text")
   }, 500);
 }
+// Time function
 
-let randomResult = calculateResult()
+let timeInterval;
 
-function playTheGame() {
-  buttonStart.disabled = true;
-  inputResult.disabled = false;
-  inputResult.focus()
-  setInterval(() => {
-    if (progressBar.value > 0) {
-      progressBar.value -= 1
-    } else if (progressBar.value == 0) {
-      buttonStart.disabled = false;
-      inputResult.disabled = true;
-      progressBar.value = timeLeft
-      clearInterval(this)
-    }
-  }, 1000);
-  randomResult
+function timeLeftInterval(){
+  if(!timeInterval){
+    timeInterval = setInterval(time,1000)
+  }
 }
 
-inputResult.addEventListener("keyup", function(e){
-  if(e.key === "Enter" && inputResult.value != ""){
-    if(inputResult.value == randomResult){
-      createMessage(true)
-      randomResult = calculateResult()
-      inputResult.value = ""
-      score++
-    }else {
-      createMessage(false)
-      randomResult = calculateResult()
-      inputResult.value = ""
-      score--
-    }
+function time(){
+  if (progressBar.value > 0) {
+    progressBar.value--
+  } else if (progressBar.value == 0) {
+    buttonStart.disabled = false;
+    inputResult.disabled = true;
+    firstNumber.textContent = ""
+    operation.textContent = ""
+    secondNumber.textContent = ""
+    secondNumber.textContent = ""
+    inputResult.value = ""
+    setTimeout(() => {
+      showScores()
+    clearInterval(timeInterval);
+    // release our intervalID from the variable
+    timeInterval = null;  
+    }, 1000);
   }
-})
+}
+
+function playTheGame() {
+  progressBar.value = timeLeft
+  buttonStart.disabled = true;
+  inputResult.disabled = false;
+  inputResult.value = ""
+  inputResult.placeholder = ""
+  inputResult.focus()
+  timeLeftInterval()
+  let randomResult = calculateResult()
+  inputResult.addEventListener("keyup", function(e){
+    if(e.key === "Enter" && inputResult.value != ""){
+      if(inputResult.value == randomResult){
+        displayMessage(true)
+        randomResult = calculateResult()
+        inputResult.value = ""
+        score++
+      }else {
+        displayMessage(false)
+        randomResult = calculateResult()
+        inputResult.value = ""
+        score--
+      }
+    }
+  })
+}
+
+function showScores(){
+  const div = document.createElement('div')
+  const p = document.createElement('p')
+  const text = document.createTextNode("Your Score is: "+score)
+  div.setAttribute('class', 'absolute center-position teal white-text rounded p-1 animation')
+  p.appendChild(text)
+  div.appendChild(p)
+  body.appendChild(div)
+  setTimeout(() => {
+    div.remove()
+  }, 5000);
+}
 
 
 function calculateResult() {
@@ -90,10 +122,10 @@ function calculateResult() {
   return total
 }
 
-function createMessage(checkResult) {
+function displayMessage(checkResult) {
   const div = document.createElement('div')
   const p = document.createElement('p')
-  const resultValue = checkResult ? '¡Correct!' : '¡Incorrect!'
+  const resultValue = checkResult ? "¡Correct!" : "¡Incorrect!";
   const text = document.createTextNode(resultValue)
 
   if (resultValue == "¡Correct!") {

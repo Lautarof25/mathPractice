@@ -90,7 +90,7 @@ function showScores(){
   const div = document.createElement('div')
   const p = document.createElement('p')
   const text = document.createTextNode("Your Score is: "+score)
-  div.setAttribute('class', 'absolute center-position teal white-text rounded p-1 animation')
+  div.setAttribute('class', 'absolute center-top-position teal white-text fs-1 rounded p-1 animation')
   p.appendChild(text)
   div.appendChild(p)
   body.appendChild(div)
@@ -129,9 +129,9 @@ function displayMessage(checkResult) {
   const text = document.createTextNode(resultValue)
 
   if (resultValue == "¡Correct!") {
-    div.setAttribute('class', 'absolute center-position teal white-text rounded p-1 animation')
+    div.setAttribute('class', 'absolute center-top-position teal white-text rounded p-1 animation')
   } else {
-    div.setAttribute('class', 'absolute center-position red darken-1 white-text rounded p-1 animation')
+    div.setAttribute('class', 'absolute center-top-position red darken-1 white-text rounded p-1 animation')
   }
 
   p.appendChild(text)

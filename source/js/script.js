@@ -25,12 +25,14 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-function randomOperationTitle(){
+function randomOperationTitle() {
   setInterval(() => {
     spanTitle.textContent = " " + randomOperation()
     spanTitle.setAttribute("class", "absolute teal-text")
   }, 500);
 }
+
+let randomResult = calculateResult()
 
 function playTheGame() {
   buttonStart.disabled = true;
@@ -39,10 +41,31 @@ function playTheGame() {
   setInterval(() => {
     if (progressBar.value > 0) {
       progressBar.value -= 1
+    } else if (progressBar.value == 0) {
+      buttonStart.disabled = false;
+      inputResult.disabled = true;
+      progressBar.value = timeLeft
+      clearInterval(this)
     }
   }, 1000);
-
+  randomResult
 }
+
+inputResult.addEventListener("keyup", function(e){
+  if(e.key === "Enter" && inputResult.value != ""){
+    if(inputResult.value == randomResult){
+      createMessage(true)
+      randomResult = calculateResult()
+      inputResult.value = ""
+      score++
+    }else {
+      createMessage(false)
+      randomResult = calculateResult()
+      inputResult.value = ""
+      score--
+    }
+  }
+})
 
 
 function calculateResult() {
@@ -70,7 +93,7 @@ function calculateResult() {
 function createMessage(checkResult) {
   const div = document.createElement('div')
   const p = document.createElement('p')
-  const resultValue = checkResult ? '¡Correct!' : '"¡Incorrect!"'
+  const resultValue = checkResult ? '¡Correct!' : '¡Incorrect!'
   const text = document.createTextNode(resultValue)
 
   if (resultValue == "¡Correct!") {

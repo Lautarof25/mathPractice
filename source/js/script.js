@@ -53,7 +53,10 @@ function time(){
     inputResult.value = ""
     setTimeout(() => {
       showScores()
-    clearInterval(timeInterval);
+      clearInterval(timeInterval);
+      setTimeout(() => {
+        score = 0  
+      }, 1000);
     // release our intervalID from the variable
     timeInterval = null;  
     }, 1000);

@@ -1,93 +1,97 @@
 .fs-1 {
-    font-size: 2rem!important;
-  }
-  
-  .p-1 {
-    padding: 1rem!important;
-  }
-  
-  .p-0{
-    padding: 0;
-  }
-  
-  .m-auto {
-    margin: 0 auto;
-  }
-  
-  .absolute {
-    position: absolute;
-  }
-  .relative {
-    position: relative;
-  }
-  
-  .center-top-position{
-    margin: 0;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .rounded {
-    border-radius: 5px;
-  }
-
-  progress {
-    width: 300px;
-    height : 25px;
-    border: 2px solid #26a69a;
-    margin-top: 1rem;
- }
- progress::-webkit-progress-bar {
-   background-color: #707070;
+  font-size: 2rem !important;
 }
+
+.p-1 {
+  padding: 1rem !important;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.m-auto {
+  margin: 0 auto;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.center-top-position {
+  margin: 0;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rounded {
+  border-radius: 5px;
+}
+
+progress {
+  width: 300px;
+  height: 25px;
+  border: 2px solid #26a69a;
+  margin-top: 1rem;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #707070;
+}
+
 progress::-webkit-progress-value {
   background-color: #26a69a;
- }
-  
-  
-  /* Chrome, Safari, Edge, Opera */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.animation {
+  animation-name: appear;
+  animation-duration: 2s;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
   }
-  
-  /* Firefox */
-  input[type=number] {
-    -moz-appearance: textfield;
+
+  50% {
+    opacity: 1;
   }
-  
-  .flex {
-    display: flex;
+
+  100% {
+    opacity: 0;
   }
-  
-  .flex-col {
-    flex-direction: column;
-  }
-  
-  .justify-center {
-    justify-content: center;
-  }
-  
-  .items-center {
-    align-items: center;
-  }
-  
-  .animation {
-    animation-name: appear;
-    animation-duration: 2s;
-  }
-  
-  @keyframes appear {
-    0%{
-      opacity: 0;
-    }
-    50%{
-      opacity: 1;
-    }
-    100%{
-      opacity: 0;
-    }
-  }
-  
+}

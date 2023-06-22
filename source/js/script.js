@@ -11,6 +11,7 @@ const operations = ["+", "-", "x"]
 let score = 0
 let timeLeft = 30
 let historial = []
+let countAnswers = 0
 inputResult.disabled = true
 
 randomOperationTitle()
@@ -34,13 +35,13 @@ function randomOperationTitle() {
 
 let timeInterval;
 
-function timeLeftInterval(){
-  if(!timeInterval){
-    timeInterval = setInterval(time,1000)
+function timeLeftInterval() {
+  if (!timeInterval) {
+    timeInterval = setInterval(time, 1000)
   }
 }
 
-function time(){
+function time() {
   if (progressBar.value > 0) {
     progressBar.value--
   } else if (progressBar.value == 0) {
@@ -55,10 +56,11 @@ function time(){
       showScores()
       clearInterval(timeInterval);
       setTimeout(() => {
-        score = 0  
+        score = 0
+        countAnswers = 0
       }, 1000);
-    // release our intervalID from the variable
-    timeInterval = null;  
+      // release our intervalID from the variable
+      timeInterval = null;
     }, 1000);
   }
 }
@@ -72,27 +74,27 @@ function playTheGame() {
   inputResult.focus()
   timeLeftInterval()
   let randomResult = calculateResult()
-  inputResult.addEventListener("keyup", function(e){
-    if(e.key === "Enter" && inputResult.value != ""){
-      if(inputResult.value == randomResult){
+  inputResult.addEventListener("keyup", function (e) {
+    if (e.key === "Enter" && inputResult.value != "") {
+      if (inputResult.value == randomResult) {
         displayMessage(true)
         randomResult = calculateResult()
         inputResult.value = ""
         score++
-      }else {
+      } else {
         displayMessage(false)
         randomResult = calculateResult()
         inputResult.value = ""
-        score--
       }
+      countAnswers++
     }
   })
 }
 
-function showScores(){
+function showScores() {
   const div = document.createElement('div')
   const p = document.createElement('p')
-  const text = document.createTextNode("Your Score is: "+score)
+  const text = document.createTextNode("Score:" + score +", Answers: "+ countAnswers)
   div.setAttribute('class', 'absolute center-top-position teal white-text fs-1 rounded p-1 animation')
   p.appendChild(text)
   div.appendChild(p)
